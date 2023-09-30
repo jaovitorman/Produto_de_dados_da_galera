@@ -1,0 +1,13 @@
+Package: revisao199910
+Type: Package
+Title: Pacote Prova 
+Version: 0.1.0
+Author: Seu nome
+Maintainer: Seu Nome <seu_nome_aqui@seunome.com>
+Description: Revisao para prova de ME918
+License:  GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Imports:
+    ggplot2
