@@ -1,0 +1,40 @@
+---
+title: "**SAPOS**"
+output: 
+  html_document:
+    theme: darkly
+    highlight: kate
+    fig.hight: 4
+    fig.width: 4
+params: 
+  frog: "northing"
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(DAAG)
+data("frogs")
+```
+
+Nesse simples exemplo utilizamos a variavel `r params$frog` como a única preditora para
+um modelo de regressão logistica com resposta ,se um sitio tem sapos ou não.  
+
+## **Vendo a cara de `r params$frog`**
+```{r}
+plot(x= frogs[,params$frog],main = paste0("Grafico de " , params$frog) , col = "green")
+```
+
+## **Valores preditos**
+
+```{r}
+
+formula_glm<-reformulate(response = "pres.abs" ,params$frog )
+fit<- glm(formula_glm , data=frogs, family = binomial())
+hist(x=fit$fitted.values, xlab = params$frog , ylab = "", 
+     main = paste0("Histograma de valores preditos  ") , col = "green")
+
+
+```
+
+
