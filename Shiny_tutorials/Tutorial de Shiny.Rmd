@@ -1,0 +1,42 @@
+---
+title: "Tutorial de Shiny"
+output: 
+  prettydoc::html_pretty:
+  theme: karen
+  toc: true
+  highligh: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning  = TRUE)
+knitr::opts_chunk$set(message  = TRUE)
+```
+
+## Começando
+
+Para trabalharmos com o shiny é  necessário o pacote `shiny`.
+
+Após carregada a biblioteca, um dos modos mais simples para a criação de um aplicativo em shiny é criando um novo dirretorio e dentro dele um script, com as informações de como seu arquivo deve se comportar e seu formato.Para esse exemplo veja o script **exemlos/exemplo 1** no repositório  Git ***.
+Veja que o código faz quatro coisas :
+
+- Chama a biblioteca do pacote
+- Define uma página HTML, contendo as palavras "hello,world "
+- Especifica o comporatmento do app por uma função `server`. Que no momento ainda não faz nada
+- Executa `shinyApp(ui,server)` que monta nossa aplicativo shiny , dado a interface (HTML) e a função server. 
+
+Observação: Enquanto o aplicativo shiny roda, o R se torna ocupado , ou seja. Não
+podemos usar o console para rodar um código. 
+
+Na pasta **exemplo2** vemos o mesmo aplicativo com uma página HTML  mais complexa , os  novos elementos nela são:
+
+ - `fluidPage()`: Uma função de layout básica..
+ - `selectInput()`: É uma função de escolha de input , nesse caso é uma escolha por categorias dadas pelos datasets no pacote "datasets" .
+ - `verbatimTextOutput()`: É uma função de controle de output. Que nesse caso mostra códigos.
+ - ` tableOutput() `:É uma função de controle de output. Que nesse caso mostra uma tabela. 
+ 
+ 
+
+ 
+
+
