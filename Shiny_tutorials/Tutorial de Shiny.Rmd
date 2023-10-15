@@ -1,10 +1,12 @@
 ---
-title: "Tutorial de Shiny"
+title: "**Tutorial de Shiny**"
 output: 
   prettydoc::html_pretty:
-  theme: karen
-  toc: true
-  highligh: github
+   toc: true
+   theme: leonids
+   highlight: github
+  
+  
 ---
 
 ```{r setup, include=FALSE}
@@ -79,7 +81,104 @@ server <- function(input, output, session) {
 Agora a expressão `dataset()` é um recipiente para nosso input .
 
 Concluimos o capítulo inicial aonde é possível através desse aplicativo simples. Entender as partes básicas de uma aplicação Shiny.
-.
+
+## Os básicos de UI (input e Output)
+
+Vimos anteriormente que o argumento `ui` em nossas aplicações define quais seram os inputs , e o formato de nossos output .Vamos nessa seção analisar mais a fundo esses componenetes .
+
+### Input 
+
+Para o registro de entradas (inputs), temos um grande coletanea de funções algumas delas são `sliderInput`, `selectInput`,`textInput` e `numericInput`.
+
+Todas essa funções possume uma extrutura comum aonde o primeiro elemento é um nome , InputId, para o dado que está entrando.Assim na nossa função server para obtermos o input usamos `input$InputId`. O nome de cada Input, segue as mesmas regras de nomeação de uma variável no R, e claro deve ser único.
+
+Outro parâmetro comum em muitas funções `xxxInput()` é `label` que é a legenda nos campos de entrada em nossa aplicação final. E por ultimo o parâmetro value que corresponde ao valor default, de seleção.
+
+Alguns exemplos de entrada
+
+```
+#Barra de deslizamento
+sliderInput("min", "Limit (minimum)", value = 50, min = 0, max = 100)
+
+#Texto simples
+textInput("name", "What's your name?"),
+
+#Texto senha
+passwordInput("password", "What's your password?"),
+
+#Área de texto
+textAreaInput("story", "Tell me about yourself", rows = 3)
+
+#Colocar um número
+numericInput("num", "Number one", value = 0, min = 0, max = 100),
+
+#Barra de deslizamento com intervalo
+sliderInput("rng", "Range", value = c(10, 20), min = 0, max = 100)
+
+#Data
+dateInput("dob", "When were you born?"),
+
+#Data com intervalo
+dateRangeInput("holiday", "When do you want to go on vacation next?")
+
+#Selecionar resultado
+selectInput("state", "What's your favourite state?", state.name),
+
+#Botões de seleção
+radioButtons("animal", "What's your favourite animal?", animals)
+
+#Botões de seleção com desgin difrente
+ radioButtons("rb", "Choose one:",
+    choiceNames = list(
+      icon("angry"),
+      icon("smile"),
+      icon("sad-tear")
+    ),
+    choiceValues = list("angry", "happy", "sad")
+  )
+
+#Caixa de seleção
+checkboxGroupInput("animal", "What animals do you like?", animals)
+
+#Caixa de seleção com valores únicos(verdadeiro ou falso)
+checkboxInput("cleanup", "Clean up?", value = TRUE),
+
+#Caixa de seleção com valores únicos(verdadeiro ou falso)
+checkboxInput("shutdown", "Shutdown?")
+
+```
+Observações: 
+
+- Na função sliderInput, quando definimos `value` como um vetor , nosso slider pegara intervalos na seleção, e para definir o tamanho de cada passo no slider usamos o argumento`step`. 
+- Para selecionarmos multiplos valores em `selectInput`, usamos o argumento, `multiple = TRUE` 
+
+Outra forma reativa de interação são botões, eles podem ser definidos por `actionButton `, além disso sua aparência pode ser alterada alterando alguns de seus argumentos,como `class`, segue o exemplo:
+
+```
+ui <- fluidPage(
+  fluidRow(
+    actionButton("click", "Click me!", class = "btn-danger"),
+    actionButton("drink", "Drink me!", class = "btn-lg btn-success")
+  ),
+  fluidRow(
+    actionButton("eat", "Eat me!", class = "btn-block")
+  )
+)
+
+```
+
+### Output
+
+Os outputs definidos em ui, servem para indicar como o resultado saira depois na nossa função server . Assim como para nossos inputs , podemos acessar o formato final por `output$outputID`
+
+Existem três tipos de output, dependendo do que deseja imprimir na página final são eles:
+
+- `textOutput()` ou `verbatimTextOutput()`: Para imprimir textos.Usamos em par respectivamente `renderText()` e `renderPrint()` . O primeiro imprimi strings e o segundo resultado de funções.
+- `tableOutput()` ou `dataTableOutput()`: Para imprimir tabelas. Usamos em par `renderTable()` e `renderDataTable()`. O primeiro imprimi tabelas pequenas de estatisticas, enquanto o segundo permite controle do tamanho de impressão, mais indicado para ver tabelas de dados puros (Rawdata).
+- ´`plotOutp` : Para gráficos , usado em par com `renderPlot()`
+
+
+
 
 
 
