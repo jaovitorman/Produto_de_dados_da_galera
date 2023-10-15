@@ -84,6 +84,56 @@ output. Que nesse caso mostra códigos.</li>
 <li><code>tableOutput()</code>:É uma função de controle de output. Que
 nesse caso mostra uma tabela.</li>
 </ul>
+<p>No exemplo 3 , adicionamos a função server algumas coisas que ela
+deve fazer. Veja que anteriormente em <code>fluid_page</code>, definimos
+através das funções <code>verbetimTextOut(&quot;summary&quot;)</code> e
+<code>tableOutput(&quot;table&quot;)</code> o formato que essas variavéis ,
+<code>summary</code> e <code>table</code> seriam imprimidos, a primeira
+em código e a segunda em tabela. E agora na função server através de
+`</p>
+<pre><code>server &lt;- function(input, output, session) {
+  output$summary &lt;- renderPrint({
+  })
+ 
+ output$table &lt;- renderTable({
+  })
+}
+</code></pre>
+<p>Etamos usando as indentificações criadas para renderizar no (HTML)
+final o formato desejado .</p>
+<p>Além dessas definições de reenderização usando a
+função<code>get(input$dataset,  &quot;package:datasets&quot;)</code> obtemos o
+input que foi fornecido anteriormente. O resto do código é simplismente
+as funções a serem aplicadas sobre o input.</p>
+<p>Assim vemos que nosso código se torna reativo, ou seja teremos um
+resultado diferente para cada valor que o usuário selecionar .</p>
+<p>Terminado no exemplo 4 vemos uma forma de não repetir o código
+<code>dataset &lt;- get(input$dataset, &quot;package:datasets&quot;)</code>,
+usando o <strong>expressões reativas</strong>, ela básicamente é como
+uma função que em sua primeira chamada lê o input e armazena o que foi
+passado e salva em um elemento . Podemos simplificar o código anterior
+pela expressão reativa.</p>
+<pre><code>server &lt;- function(input, output, session) {
+  # Create a reactive expression
+  dataset &lt;- reactive({
+    get(input$dataset, &quot;package:datasets&quot;)
+  })
+
+  output$summary &lt;- renderPrint({
+    # Use a reactive expression by calling it like a function
+    summary(dataset())
+  })
+  
+  output$table &lt;- renderTable({
+    dataset()
+  })
+}
+</code></pre>
+<p>Agora a expressão <code>dataset()</code> é um recipiente para nosso
+input .</p>
+<p>Concluimos o capítulo inicial aonde é possível através desse
+aplicativo simples. Entender as partes básicas de uma aplicação Shiny.
+.</p>
 </div>
 </section>
 

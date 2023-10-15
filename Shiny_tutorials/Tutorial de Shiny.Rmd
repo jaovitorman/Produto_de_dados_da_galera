@@ -35,6 +35,56 @@ Na pasta **exemplo2** vemos o mesmo aplicativo com uma página HTML  mais comple
  - `verbatimTextOutput()`: É uma função de controle de output. Que nesse caso mostra códigos.
  - ` tableOutput() `:É uma função de controle de output. Que nesse caso mostra uma tabela. 
  
+No exemplo 3 , adicionamos a função server algumas coisas que ela deve fazer. Veja que anteriormente em `fluid_page`, definimos através das funções `verbetimTextOut("summary")` e `tableOutput("table")` o formato que essas variavéis , `summary` e `table ` seriam imprimidos, a primeira em código e a segunda em tabela. E agora na função server através de
+`
+```
+server <- function(input, output, session) {
+  output$summary <- renderPrint({
+  })
+ 
+ output$table <- renderTable({
+  })
+}
+
+```
+
+Etamos usando as indentificações criadas para renderizar no (HTML) final o formato desejado . 
+
+Além dessas definições de reenderização usando a função`get(input$dataset,  "package:datasets")` obtemos o input que foi fornecido anteriormente. O resto do código é simplismente as funções a serem aplicadas sobre o input.
+
+Assim vemos que nosso código se torna reativo, ou seja teremos um resultado diferente para cada valor que o usuário selecionar .
+
+Terminado no **exemplo 4** vemos uma forma de não repetir o código `dataset <- get(input$dataset, "package:datasets")`, usando o **expressões reativas**, ela básicamente é como uma função que em sua primeira chamada lê o input e armazena o que foi passado e salva em um elemento .
+Podemos simplificar o código anterior pela expressão reativa.
+
+```
+server <- function(input, output, session) {
+  # Create a reactive expression
+  dataset <- reactive({
+    get(input$dataset, "package:datasets")
+  })
+
+  output$summary <- renderPrint({
+    # Use a reactive expression by calling it like a function
+    summary(dataset())
+  })
+  
+  output$table <- renderTable({
+    dataset()
+  })
+}
+
+```
+
+Agora a expressão `dataset()` é um recipiente para nosso input .
+
+Concluimos o capítulo inicial aonde é possível através desse aplicativo simples. Entender as partes básicas de uma aplicação Shiny.
+.
+
+
+
+
+
  
 
  
