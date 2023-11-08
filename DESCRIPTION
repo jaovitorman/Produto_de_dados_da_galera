@@ -1,0 +1,15 @@
+Package: pacote.projeto.final
+Type: Package
+Title: Pacote para o trabalh final
+Version: 0.1.0
+Author: Grupo D
+Maintainer: Grupo D <xxxxx@xxxxx.com>
+Description: Pacote contendo as funcoes utilizadas no Shiny, para o trabalho final
+License: use_gpl_license()
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    purrr,
+    ggplot
+         
